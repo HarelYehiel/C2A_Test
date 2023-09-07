@@ -32,29 +32,38 @@ export class test2Page {
             // Takes the price of the first cell phone and compares to all the others
             cy.get(this.getTheEventPhone_by_index(1)).invoke('text').then((text) => {
 
-                // Get the first price
+                // Get the first phone's price.
                 let theCheapest_price = parseFloat(text.replace('$', ''));
                 let theCheapest_phone = 1;
 
-                // Use a loop to interact with all  elements kind of phones
-                for (let i = 2; i < 8; i++) {
+                this.countChildElementsById('tbodyid').then((numberOfChildren) => {
 
-                    // Takes the price and keeps it if it is the smallest.
-                    cy.get(this.getTheEventPhone_by_index(i)).invoke('text').then((text) => {
+                    // Use a loop to interact with all  elements kind of phones
+                    for (let i = 2; i <= numberOfChildren; i++) {
+                        // Takes the price and keeps it if it is the smallest.
+                        cy.get(this.getTheEventPhone_by_index(i)).invoke('text').then((text) => {
 
-                        let nextPrice = parseFloat(text.replace('$', ''));
+                            let nextPrice = parseFloat(text.replace('$', ''));
 
-                        if (nextPrice < theCheapest_price) {
-                            theCheapest_price = nextPrice;
-                            theCheapest_phone = i;
-                        }
-                        if (i === 7) {
-                            resolve(theCheapest_phone);
-                        }
-                    });
-                }
+                            if (nextPrice < theCheapest_price) {
+                                theCheapest_price = nextPrice;
+                                theCheapest_phone = i;
+                            }
+                            if (i === numberOfChildren) {
+                                resolve(theCheapest_phone);
+                            }
+                        });
+                    }
+                });
             });
         })
+    }
+    countChildElementsById(elementId) {
+        // Use Cypress to select the element with the specified ID
+        return cy.get(`#${elementId}`).children().then((children) => {
+            // Get the length of the child elements and return it as a promise
+            return children.length;
+        });
     }
     addTheCheapestPhoneToCart() {
         //Promise p = this.findtheCheapestPhone();

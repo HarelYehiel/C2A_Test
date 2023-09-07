@@ -11,6 +11,7 @@ async function extractTextFromPDF(filePath) {
 async function comparePDFs(pdf1Path, pdf2Path) {
     const text1 = await extractTextFromPDF(pdf1Path);
     const text2 = await extractTextFromPDF(pdf2Path);
+
     // Remove whitespace and line breaks for comparison
     const cleanText1 = text1.replace(/\s+/g, ' ').trim();
     const cleanText2 = text2.replace(/\s+/g, ' ').trim();
@@ -18,9 +19,18 @@ async function comparePDFs(pdf1Path, pdf2Path) {
     return cleanText1 === cleanText2;
 }
 
-// Specify the paths to the two PDF files you want to compare
-const pdf1Path = 'C:/Users/POSEIDON/Projects/C2A Test/C2A_Test/cypress/test 2/file1.pdf';
-const pdf2Path = 'C:/Users/POSEIDON/Projects/C2A Test/C2A_Test/cypress/test 2/file3.pdf';
+// Import the 'path' module if you're in a Node.js environment
+const path = require('path');
+
+// Get the current script's directory
+const scriptDir = __dirname;
+
+// Construct a relative path to your files
+const pdf1Path = path.join(scriptDir, 'file1.pdf');
+const pdf2Path = path.join(scriptDir, 'file2.pdf');
+
+console.log(`Relative file path: ${pdf1Path}`);
+console.log(`Relative file path: ${pdf2Path}`);
 
 // Compare the PDFs and assert the result
 comparePDFs(pdf1Path, pdf2Path)
