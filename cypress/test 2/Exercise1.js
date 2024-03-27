@@ -1,3 +1,9 @@
+/*
+1. Compare & Assert the Texts of 2 PDF Files.
+Create a test that will assert true if 2 PDFs files’ text is the same
+You can create 2 simple pdfs with different texts in each – add them to your cypress project.
+*/
+
 const fs = require('fs');
 const PDFParser = require('pdf-parse');
 
