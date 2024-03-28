@@ -12,9 +12,4 @@ Note: You may use external packages
 "password": "4r4nd0mp4ssw0rd"
 3. Add the cheapest phone to cart
 
-Create a public repository in github.
-Create a cypress project and push your code into the repository.
-Send a link to the repository to this email:
-Rotem.elharar@c2a-sec.com
-
 If you do not finish the task, please send the partial implementation.
